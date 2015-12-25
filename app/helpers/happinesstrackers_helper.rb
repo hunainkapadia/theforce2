@@ -1,0 +1,2 @@
+module HappinesstrackersHelper
+end

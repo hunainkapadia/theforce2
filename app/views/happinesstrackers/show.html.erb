@@ -1,0 +1,6 @@
+<h1>Today's Question</h1>
+<p>
+<%= @happinesstracker.question %>
+	<%= button_to "Yes",  {:controller => "happinesstrackers", :action => "update", :answer => true}, method: :put %>
+	<%= button_to "No",  {:controller => "happinesstrackers", :action => "update", :answer => false}, method: :put %>
+</p>
