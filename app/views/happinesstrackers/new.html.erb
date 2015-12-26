@@ -1,19 +1,25 @@
 <div class="navbar">
 	<%= image_tag "airbnb_logo_detail.png" %>
+  <ul>
+    <li><a href="#">admin</a></li><li><a href="#">survey</a></li><li><a href="#">results</a></li><li><a href="#">contact</a></li>
+  </ul>
 </div>
-<h1>New Daily Question</h1>
-  <p>Are you happy today?</p>
+<div class="question_menu">
+  <h1>Welcome to AirPulse!</h1>
+    <br />
+    Are you happy today?<button class="answer_button answer_yes">Yes</button><button class="answer_button answer_no">No</button>
+    <br /><br />
+    Are you stressed today?<button class="answer_button answer_yes">Yes</button><button class="answer_button answer_no">No</button>
+    <br /><br />
 
-<%= form_for :happinesstracker, url: happinesstrackers_path do |f| %>
-  <p>
-    <%= f.label :question %><br>
-    <%= f.text_field :question %>
-  </p> 
-  <p>
-    <%= f.label :question2 %><br>
-    <%= f.text_field :question2 %>
-  </p>   
-  <p>
-    <%= f.submit %>
-  </p>
-<% end %>
+  <%= form_for :happinesstracker, url: happinesstrackers_path do |f| %>
+    <p>
+      <%= f.label :question %><br>
+      <%= f.text_field :question %>
+    </p> 
+    <br />
+    <p>
+      <%= f.submit %>
+    </p>
+  <% end %>
+</div>
