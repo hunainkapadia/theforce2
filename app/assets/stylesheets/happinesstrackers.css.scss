@@ -1,3 +1,30 @@
 // Place all the styles related to the happinesstrackers controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+* {
+	margin: 0px;
+	padding: 0px;
+	font-family: Arial;
+	color: #333;
+	font-size: 13px;
+	-webkit-font-smoothing: antialiased;
+	-moz-font-smoothing: antialiased;
+	-ms-font-smoothing: antialiased;
+	-o-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.004);		
+}
+
+.navbar {
+	top: 0px;
+	left: 0px;
+	height: 40px;
+	width: 100%;
+	background-color: rgb(255,90,96);
+	float: left;
+}
+
+.navbar img {
+	height: 40px;
+}
