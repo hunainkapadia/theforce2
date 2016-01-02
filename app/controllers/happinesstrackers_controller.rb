@@ -7,38 +7,73 @@ def index
   end
 
   def new
-    @happinesstracker = Happinesstracker.new
+    #@happinesstracker = Happinesstracker.new
   end
 
   def edit
   end
 
   def create	
-   @happinesstracker = Happinesstracker.new(happinesstracker_params)
- 
-   @happinesstracker.save
-   redirect_to @happinesstracker
+  if !params[:openquestion].nil?
+    @openquestion = OpenQuestions.new(open_question_params)
+    @openquestion.save
+  end
+
+  if !params[:closedquestion].nil?
+    @closedquestion = ClosedQuestions.new(closed_question_params)
+    @closedquestion.save
+  end
+
+   redirect_to happinesstrackers_admin_path
   end
 
   def update
-	@happinesstracker = Happinesstracker.find(params[:id])
-	
-	if params[:answer] == "true"
-	@answer = Answer.new(happinesstracker_id: @happinesstracker.id, answer: true)
-	@answer.save
-	else
-	@answer = Answer.new(happinesstracker_id: @happinesstracker.id, answer: false)
-	@answer.save
-    end
-	
-    redirect_to @happinesstracker	
-  end
+    render plain: params[:closedquestion].inspect
+    redirect_to home_index_path
+	end
 
   def destroy
   end
   
+  def admin
+    @closedquestions = ClosedQuestions.where(is_visible: true)
+    @openquestions = OpenQuestions.all
+  end
+
+  def survey
+  @closedquestions = ClosedQuestions.where(is_visible: true)
+  end
+
+  def thankyou
+    @answers = params[:closedanswer]
+    @answers.each do |key, val| 
+      closedquestionid = key
+      ans = val
+      puts "#{closedquestionid} => #{ans}"
+    @closedquestion = ClosedQuestions.find(closedquestionid)
+    #puts @closedquestion.where(id: closedquestionid)
+    #@saveanswer = @closedquestion.closedanswers.create() 
+    #ClosedAnswers.new(params.require(:closedanswer).permit(:ans))
+    #@saveanswer.save
+    end
+    #render plain: @answers
+    #redirect_to happinesstrackers_thankyou_path
+  end
+
   private
+    def closedquestion_answer_params
+    params.require(:closedanswer).permit(:closedquestionid, :ans)
+  end
+
   def happinesstracker_params
     params.require(:happinesstracker).permit(:question)
+  end
+  
+  def closed_question_params
+    params.require(:closedquestion).permit(:closedquestion, :is_visible)
+  end
+
+  def open_question_params
+    params.require(:openquestion).permit(:openquestion, :createdby, :createdfordate)
   end
 end

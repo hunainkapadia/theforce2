@@ -1,0 +1,13 @@
+<h1>Today's Question</h1><br>
+<br>
+<p>
+<%= form_for :closedanswer, url: happinesstrackers_thankyou_path do |f| %>	
+<% @closedquestions.each do |closedquestion| %>
+<%= closedquestion.closedquestion %><br><br>
+ <%= f.radio_button closedquestion.id, true %>Yes<br/>
+  <%= f.radio_button closedquestion.id, false %>No<br/>
+<% end %>
+<%= f.submit "thankyou" %>
+<% end %>
+</p>
+

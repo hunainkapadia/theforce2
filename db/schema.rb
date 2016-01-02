@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151224231106) do
+ActiveRecord::Schema.define(version: 20151230211023) do
 
   create_table "answers", force: true do |t|
     t.boolean  "answer"
@@ -22,8 +22,39 @@ ActiveRecord::Schema.define(version: 20151224231106) do
 
   add_index "answers", ["happinesstracker_id"], name: "index_answers_on_happinesstracker_id"
 
+  create_table "closed_answers", force: true do |t|
+    t.boolean  "Answer"
+    t.integer  "closed_question_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "closed_answers", ["closed_question_id"], name: "index_closed_answers_on_closed_question_id"
+
+  create_table "closed_questions", force: true do |t|
+    t.string   "closedquestion"
+    t.boolean  "is_visible"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "cquestions", force: true do |t|
+    t.string   "question"
+    t.boolean  "is_visible"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "happinesstrackers", force: true do |t|
     t.string   "question"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "open_questions", force: true do |t|
+    t.string   "openquestion"
+    t.string   "createdby"
+    t.date     "createdfordate"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

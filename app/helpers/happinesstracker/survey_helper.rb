@@ -1,0 +1,2 @@
+module Happinesstracker::SurveyHelper
+end

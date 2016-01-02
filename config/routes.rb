@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   get 'home/index'
-
+  get '/happinesstrackers/survey' => 'happinesstrackers#survey'
+  get '/happinesstrackers/admin' => 'happinesstrackers#admin'
+  post '/happinesstrackers/thankyou' => 'happinesstrackers#thankyou'
+  #get '/happinesstrackers/thankyou' => 'happinesstrackers#thankyou'
+  #post '/happinesstrackers/survey' => 'happinesstrackers#update'
+  
   resources :happinesstrackers
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

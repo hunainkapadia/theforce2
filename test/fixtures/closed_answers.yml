@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Answer: false
+  closed_question_id: 
+
+two:
+  Answer: false
+  closed_question_id: 

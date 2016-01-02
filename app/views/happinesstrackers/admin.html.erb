@@ -1,0 +1,30 @@
+
+<br>
+<h1>List of closed questions</h1>
+<br>
+<% @closedquestions.each do |closedquestion| %>
+<%= closedquestion.closedquestion %><br>
+<% end %>
+<br>
+<br>
+<p>To create another closed question, type it here and press Create</p>
+<%= form_for :closedquestion, url: happinesstrackers_path do |f| %>
+  <%= f.text_field :closedquestion %>
+  <%= f.check_box :is_visible %>
+  <%= label_tag(:is_visible, "Is visible") %>
+  <%= f.submit "Create" %>
+<% end %>
+<br>
+<br>
+<h1>List of open questions</h1>
+<% @openquestions.each do |openquestion| %>
+<%= openquestion.openquestion %><br>
+<% end %>
+<br>
+<p>To create another open question, type it here and press Create</p>
+<%= form_for :openquestion, url: happinesstrackers_path do |f| %>
+  <p>Open Question <%= f.text_field :openquestion %></p><br>
+  <p>Created by <%= f.text_field :createdby %></p><br>
+  <p>Created for date <%= f.date_field :createdfordate %></p><br>
+  <%= f.submit "Create" %>
+<% end %>
