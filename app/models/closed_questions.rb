@@ -1,3 +1,3 @@
 class ClosedQuestions < ActiveRecord::Base
-	has_many :closedanswers 
+	has_many :canswers 
 end

@@ -1,5 +1,12 @@
 class HappinesstrackersController < ApplicationController
 def index
+  @closedquestions = ClosedQuestions.where(is_visible: true)
+  @happyanswers = Happy1answer.where(hanswer: true)
+  @Nothappyanswers = Happy1answer.where(hanswer: false)
+  @stressedanswers = Stressed1answer.where(sanswer: true)
+  @Notstressedanswers = Stressed1answer.where(sanswer: false)
+  @openquestion = OpenQuestions.where(id: 3)
+  @openanswers = Oanswer.where(questionid: 3)
   end
 
   def show
@@ -24,6 +31,11 @@ def index
     @closedquestion.save
   end
 
+  if !params[:cquestion].nil?
+    @closedquestion = Cquestions.new(c_question_params)
+    @closedquestion.save
+  end
+
    redirect_to happinesstrackers_admin_path
   end
 
@@ -42,27 +54,24 @@ def index
 
   def survey
   @closedquestions = ClosedQuestions.where(is_visible: true)
+  @openquestions = OpenQuestions.all
   end
 
   def thankyou
-    @answers = params[:closedanswer]
-    @answers.each do |key, val| 
-      closedquestionid = key
-      ans = val
-      puts "#{closedquestionid} => #{ans}"
-    @closedquestion = ClosedQuestions.find(closedquestionid)
-    #puts @closedquestion.where(id: closedquestionid)
-    #@saveanswer = @closedquestion.closedanswers.create() 
-    #ClosedAnswers.new(params.require(:closedanswer).permit(:ans))
-    #@saveanswer.save
-    end
-    #render plain: @answers
+    #answer = params[:hanswer]
+    @customerans = Happy1answer.new(params.require(:closedanswer).permit(:hanswer))
+    @customerans.save
+    @customerans = Stressed1answer.new(params.require(:closedanswer).permit(:sanswer))
+    @customerans.save
+    @customerans = Oanswer.new(params.require(:closedanswer).permit(:answer, :questionid))
+    @customerans.save
+    render plain: params[:closedanswer]
     #redirect_to happinesstrackers_thankyou_path
   end
 
   private
     def closedquestion_answer_params
-    params.require(:closedanswer).permit(:closedquestionid, :ans)
+    params.require(:closedanswer).permit(:ans)
   end
 
   def happinesstracker_params
@@ -76,4 +85,9 @@ def index
   def open_question_params
     params.require(:openquestion).permit(:openquestion, :createdby, :createdfordate)
   end
+
+   def c_question_params
+    params.require(:cquestion).permit(:question, :is_visible)
+  end
+
 end

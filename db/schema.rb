@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151230211023) do
+ActiveRecord::Schema.define(version: 20160104104817) do
 
   create_table "answers", force: true do |t|
     t.boolean  "answer"
@@ -21,6 +21,31 @@ ActiveRecord::Schema.define(version: 20151230211023) do
   end
 
   add_index "answers", ["happinesstracker_id"], name: "index_answers_on_happinesstracker_id"
+
+  create_table "c1answers", force: true do |t|
+    t.boolean  "answer"
+    t.integer  "questionnbr"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "c2answers", force: true do |t|
+    t.boolean  "answer"
+    t.integer  "closedquestion_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "c2answers", ["closedquestion_id"], name: "index_c2answers_on_closedquestion_id"
+
+  create_table "canswers", force: true do |t|
+    t.boolean  "answer"
+    t.integer  "closed_question_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "canswers", ["closed_question_id"], name: "index_canswers_on_closed_question_id"
 
   create_table "closed_answers", force: true do |t|
     t.boolean  "Answer"
@@ -51,6 +76,25 @@ ActiveRecord::Schema.define(version: 20151230211023) do
     t.datetime "updated_at"
   end
 
+  create_table "happy1answers", force: true do |t|
+    t.boolean  "hanswer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "happyanswers", force: true do |t|
+    t.boolean  "answer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "oanswers", force: true do |t|
+    t.text     "answer"
+    t.integer  "questionid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "open_questions", force: true do |t|
     t.string   "openquestion"
     t.string   "createdby"
@@ -61,6 +105,18 @@ ActiveRecord::Schema.define(version: 20151230211023) do
 
   create_table "questions", force: true do |t|
     t.string   "question"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "stressed1answers", force: true do |t|
+    t.boolean  "sanswer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "stressedanswers", force: true do |t|
+    t.boolean  "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

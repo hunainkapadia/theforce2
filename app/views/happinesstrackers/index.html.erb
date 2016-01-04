@@ -1,6 +1,21 @@
 <h1>Happiness tracker reporting page</h1>
 <br>
 Setup the public dashboard here with the results from the questionaire.
+
+<br/>
+Are you happy today? <br/>
+Yes count? <%= @happyanswers.count %><br/>
+No count?  <%= @Nothappyanswers.count %><br/>
+<br/>
+Are you Stressed today? <br/>
+Yes count? <%= @stressedanswers.count %><br/>
+No count?  <%= @Notstressedanswers.count %><br/>
+
+<br/>
+Open question for today <br/>
+<%= @openquestion[0].openquestion %><br>
+Answers:<br/>
+<%= @openanswers[0].answer %>
 <br/><br/>
 <%=link_to "Today's survey", happinesstrackers_survey_path %>
 <br/>

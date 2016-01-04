@@ -28,4 +28,10 @@
   <p>Created for date <%= f.date_field :createdfordate %></p><br>
   <%= f.submit "Create" %>
 <% end %>
-
+<p>exp with Cquestion table</p>
+<%= form_for :cquestion, url: happinesstrackers_path do |f| %>
+  <%= f.text_field :question %>
+  <%= f.check_box :is_visible %>
+  <%= label_tag(:is_visible, "Is visible") %>
+  <%= f.submit "Create" %>
+<% end %>

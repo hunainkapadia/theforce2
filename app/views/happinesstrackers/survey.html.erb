@@ -2,12 +2,17 @@
 <br>
 <p>
 <%= form_for :closedanswer, url: happinesstrackers_thankyou_path do |f| %>	
-<% @closedquestions.each do |closedquestion| %>
-<%= closedquestion.closedquestion %><br><br>
- <%= f.radio_button closedquestion.id, true %>Yes<br/>
-  <%= f.radio_button closedquestion.id, false %>No<br/>
-<% end %>
-<%= f.submit "thankyou" %>
+<%= f.label @closedquestions[0].closedquestion %><br><br>
+ <%= f.radio_button :hanswer, true %>Yes<br/>
+  <%= f.radio_button :hanswer, false %>No<br/>
+ <%= f.label @closedquestions[1].closedquestion %><br><br>
+ <%= f.radio_button :sanswer, true %>Yes<br/>
+ <%= f.radio_button :sanswer, false %>No<br/>
+ <br/>
+ <%= f.label @openquestions[2].openquestion %><br><br>
+  <%= f.text_area :answer %><br><br>
+  <%= f.hidden_field :questionid, {value: @openquestions[2].id} %>
+<%= f.submit "Submit" %>
 <% end %>
 </p>
 
