@@ -1,12 +1,39 @@
+#require 'date'
+
 class HappinesstrackersController < ApplicationController
 def index
-  @closedquestions = ClosedQuestions.where(is_visible: true)
-  @happyanswers = Happy1answer.where(hanswer: true)
-  @Nothappyanswers = Happy1answer.where(hanswer: false)
-  @stressedanswers = Stressed1answer.where(sanswer: true)
-  @Notstressedanswers = Stressed1answer.where(sanswer: false)
+  #date = getdate()
+
+  #Only show answers if the total number of responses for each 
+  #question is more than 5.
+
+  #Get the count for the number of responses for each answer option
+  @happyanswercount = Happy1answer.where(hanswer: true).count
+  @Nothappyanswercount =  Happy1answer.where(hanswer: false).count
+  @stressedanswercount = Stressed1answer.where(sanswer: true).count
+  @Notstressedanswercount = Stressed1answer.where(sanswer: false).count
+  
+  #Total counts and run simple if's and throw back to view
+  if (@happyanswercount + @Nothappyanswercount)  > 5
+    @happyanswers = @happyanswercount
+    @Nothappyanswers = @Nothappyanswercount
+  else
+    @happyanswers = 'Not enough answers. Minimum total answers have to be atleast 5.'
+    @Nothappyanswers = 'Not enough answers.  Minimum total answers have to be atleast 5.'
+  end
+  
+  if (@stressedanswercount + @Notstressedanswercount)  > 5
+    @stressedanswers = @stressedanswercount
+    @Notstressedanswers = @Notstressedanswercount
+  else
+    @stressedanswers = 'Not enough answers. Minimum total answers have to be atleast 5.'
+    @Notstressedanswers = 'Not enough answers.  Minimum total answers have to be atleast 5.'
+  end
+
+  #Show open question for today, esle show "Whats up?"
   @openquestion = OpenQuestions.where(id: 3)
   @openanswers = Oanswer.where(questionid: 3)
+ 
   end
 
   def show
