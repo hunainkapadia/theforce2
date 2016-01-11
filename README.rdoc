@@ -1,3 +1,11 @@
+This is a rails application. Clone the package. The working links are
+
+127.0.0.1/happinesstracker
+127.0.0.1/happinesstracker/survey
+127.0.0.1/happinesstracker/admin
+
+
+
 == README
 
 This README would normally document whatever steps are necessary to get the
