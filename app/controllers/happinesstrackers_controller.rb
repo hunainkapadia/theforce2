@@ -2,16 +2,18 @@
 
 class HappinesstrackersController < ApplicationController
 def index
-  #date = getdate()
+  @time = Time.now.strftime("%Y-%m-%d")
+  @time1 = Time.now
+  @todaysdate = Time.new
 
   #Only show answers if the total number of responses for each 
   #question is more than 5.
 
   #Get the count for the number of responses for each answer option
-  @happyanswercount = Happy1answer.where(hanswer: true).count
-  @Nothappyanswercount =  Happy1answer.where(hanswer: false).count
-  @stressedanswercount = Stressed1answer.where(sanswer: true).count
-  @Notstressedanswercount = Stressed1answer.where(sanswer: false).count
+  @happyanswercount = Happy1answer.where('hanswer = ? and created_at > ?', true, Date.today).count
+  @Nothappyanswercount =  Happy1answer.where('hanswer = ? and created_at > ?', false, Date.today).count
+  @stressedanswercount = Stressed1answer.where('sanswer = ? and created_at > ?', true, Date.today).count
+  @Notstressedanswercount = Stressed1answer.where('sanswer = ? and created_at > ?', false, Date.today).count
   
   #Total counts and run simple if's and throw back to view
   if (@happyanswercount + @Nothappyanswercount)  > 5
@@ -31,9 +33,10 @@ def index
   end
 
   #Show open question for today, esle show "Whats up?"
-  @openquestion = OpenQuestions.where(id: 3)
-  @openanswers = Oanswer.where(questionid: 3)
- 
+  @openquestion = OpenQuestions.where(createdfordate: @time)
+  #@openanswers = Oanswer.where(created_at: @time)
+  @openanswers = Oanswer.where("created_at > ?", Date.today)
+  
   end
 
   def show
@@ -80,19 +83,19 @@ def index
   end
 
   def survey
+  @time = Time.now.strftime("%Y-%m-%d")
   @closedquestions = ClosedQuestions.where(is_visible: true)
-  @openquestions = OpenQuestions.all
+  @openquestions = OpenQuestions.where(createdfordate: @time)
   end
 
   def thankyou
-    #answer = params[:hanswer]
     @customerans = Happy1answer.new(params.require(:closedanswer).permit(:hanswer))
     @customerans.save
     @customerans = Stressed1answer.new(params.require(:closedanswer).permit(:sanswer))
     @customerans.save
     @customerans = Oanswer.new(params.require(:closedanswer).permit(:answer, :questionid))
     @customerans.save
-    render plain: params[:closedanswer]
+    #render plain: params[:closedanswer]
     #redirect_to happinesstrackers_thankyou_path
   end
 
