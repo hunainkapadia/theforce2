@@ -4,13 +4,13 @@ Setup the public dashboard here with the results from the questionaire.
 
 <br/>
 Are you happy today? <br/>
-Yes count? <%= @happyanswers %><br/>
-No count?  <%= @Nothappyanswers %><br/>
+Yes count? <%= number_to_percentage(@happyanswers, precision: 1) %><br/>
+No count?  <%= number_to_percentage(@Nothappyanswers, precision: 1) %><br/>
 <%= @happy1answers %>
 <br/>
 Are you Stressed today? <br/>
-Yes count? <%= @stressedanswers %><br/>
-No count?  <%= @Notstressedanswers %><br/>
+Yes count? <%= number_to_percentage(@stressedanswers, precision: 1) %><br/>
+No count?  <%= number_to_percentage(@Notstressedanswers, precision: 1) %><br/>
 
 <br/>
 <h3>Open question for today</h3> <br>

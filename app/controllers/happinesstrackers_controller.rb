@@ -14,19 +14,21 @@ def index
   @Nothappyanswercount =  Happy1answer.where('hanswer = ? and created_at > ?', false, Date.today).count
   @stressedanswercount = Stressed1answer.where('sanswer = ? and created_at > ?', true, Date.today).count
   @Notstressedanswercount = Stressed1answer.where('sanswer = ? and created_at > ?', false, Date.today).count
-  
+  @HappinessTotalForTheDay = @happyanswercount + @Nothappyanswercount
+  @StressedTotalForTheDay = @stressedanswercount + @Notstressedanswercount
+
   #Total counts and run simple if's and throw back to view
-  if (@happyanswercount + @Nothappyanswercount)  > 5
-    @happyanswers = @happyanswercount
-    @Nothappyanswers = @Nothappyanswercount
+  if @HappinessTotalForTheDay  > 5
+    @happyanswers = (@happyanswercount.to_f / @HappinessTotalForTheDay) * 100
+    @Nothappyanswers = (@Nothappyanswercount.to_f / @HappinessTotalForTheDay) * 100
   else
     @happyanswers = 'Not enough answers. Minimum total answers have to be atleast 5.'
     @Nothappyanswers = 'Not enough answers.  Minimum total answers have to be atleast 5.'
   end
   
-  if (@stressedanswercount + @Notstressedanswercount)  > 5
-    @stressedanswers = @stressedanswercount
-    @Notstressedanswers = @Notstressedanswercount
+  if @StressedTotalForTheDay > 5
+    @stressedanswers = (@stressedanswercount.to_f / @StressedTotalForTheDay) * 100
+    @Notstressedanswers = (@Notstressedanswercount.to_f / @StressedTotalForTheDay) * 100
   else
     @stressedanswers = 'Not enough answers. Minimum total answers have to be atleast 5.'
     @Notstressedanswers = 'Not enough answers.  Minimum total answers have to be atleast 5.'
@@ -34,15 +36,14 @@ def index
 
   #Show open question for today, esle show "Whats up?"
   openquestions = OpenQuestions.where(createdfordate: Date.today)
-  puts openquestions
+  
   if openquestions.empty?
     @openquestion = "No question specified for today. Whatsup?"
   else
     @openquestion = openquestions[0].openquestion
   end
-  #@openanswers = Oanswer.where(created_at: @time)
+
   @openanswers = Oanswer.where("created_at > ?", Date.today)
-  
   end
 
   def show
