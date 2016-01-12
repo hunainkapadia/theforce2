@@ -9,7 +9,7 @@ def index
   #Only show answers if the total number of responses for each 
   #question is more than 5.
 
-  #Get the count for the number of responses for each answer option
+  #Get the count for the number of responses for each answer option for today
   @happyanswercount = Happy1answer.where('hanswer = ? and created_at > ?', true, Date.today).count
   @Nothappyanswercount =  Happy1answer.where('hanswer = ? and created_at > ?', false, Date.today).count
   @stressedanswercount = Stressed1answer.where('sanswer = ? and created_at > ?', true, Date.today).count
@@ -33,7 +33,13 @@ def index
   end
 
   #Show open question for today, esle show "Whats up?"
-  @openquestion = OpenQuestions.where(createdfordate: @time)
+  openquestions = OpenQuestions.where(createdfordate: Date.today)
+  puts openquestions
+  if openquestions.empty?
+    @openquestion = "No question specified for today. Whatsup?"
+  else
+    @openquestion = openquestions[0].openquestion
+  end
   #@openanswers = Oanswer.where(created_at: @time)
   @openanswers = Oanswer.where("created_at > ?", Date.today)
   

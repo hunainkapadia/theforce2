@@ -14,15 +14,12 @@ No count?  <%= @Notstressedanswers %><br/>
 
 <br/>
 <h3>Open question for today</h3> <br>
-<%= @openquestion[0].openquestion %><br><br>
+<%= @openquestion %><br><br>
 <h3>Answers:</h3><br>
 <% @openanswers.each do |a| %>
 <%= a.answer %><br/>
 <% end %>
 <br/><br/>
-<%= @time %>
-<br/><br/>
-<%= @time1 %>
 <br/><br/>
 <%=link_to "Today's survey", happinesstrackers_survey_path %>
 <br/>
