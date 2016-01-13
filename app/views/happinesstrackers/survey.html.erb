@@ -11,7 +11,9 @@
  <br/>
  <!-- Switched from @openquestions[0].openquestion -->
  <%= f.label @openquestions %><br><br>
-  <%= f.text_area :answer, :class => 'open_q_1' %><br><br>
+  <%= f.text_area :answer, :class => 'open_q_1' %>
+  <span class="text_char_count">255</span> characters <span class="text_char_overlimit">remaining</span>. <span class="text_char_over"></span>
+  <br><br>
 
 <%= f.submit "Submit", :class => 'validation_submit_button' %>
 <br />

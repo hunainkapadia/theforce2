@@ -25,9 +25,9 @@ function IsInvalid() {
 	//Open question is included, but currently no validation performed on it.
 
 	//Check values below. "undefined" returned if lack of value.
-	var closed_q_1 = $('.closed_q_1:checked').val()
-	var closed_q_2 = $('.closed_q_2:checked').val()
-	var open_q_1 = $('.open_q_1').val()
+	var closed_q_1 = $('.closed_q_1:checked').val();
+	var closed_q_2 = $('.closed_q_2:checked').val();
+	var open_q_1 = $('.open_q_1').val();
 
 	//Return proper response and change value of the span field.
 	if(closed_q_1 === undefined || closed_q_2 === undefined) {
@@ -39,11 +39,32 @@ function IsInvalid() {
 	}
 }
 
+function ReturnChars() {
+	//Function to calculate number of characters remaining for the open question.
+	var allowed_length = 255;
+	var q_length = $('.open_q_1').val().length;
+	var remaining_length = allowed_length - q_length;
+
+	$('.text_char_count').html(remaining_length);
+
+	if(remaining_length < 0) {
+		$('.text_char_over').html("Only the first 255 characters will be recorded.");
+		$('.text_char_overlimit').html("over limit");
+	} else {
+		$('.text_char_over').html("");
+		$('.text_char_overlimit').html("remaining");
+	}
+}
+
 $(document).ready(function() {
 	$('.validation_submit_button').click(function() {
 		if(IsInvalid()) {
 			//Returning false will prevent form from sending.
 			return false;
 		}
+	});
+
+	$('.open_q_1').on('keydown',function () {
+		ReturnChars();
 	});
 });
