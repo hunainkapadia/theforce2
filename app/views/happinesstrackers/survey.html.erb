@@ -1,23 +1,43 @@
-<h1>Today's Question</h1><br>
-<br>
-<p>
-<%= form_for :closedanswer, url: happinesstrackers_thankyou_path do |f| %>	
-<%= f.label @closedquestions[0].closedquestion %><br><br>
- <%= f.radio_button :hanswer, true, :class => 'closed_q_1' %>Yes<br/>
-  <%= f.radio_button :hanswer, false, :class => 'closed_q_1' %>No<br/>
-<%= f.label @closedquestions[1].closedquestion %><br><br>
- <%= f.radio_button :sanswer, true, :class => 'closed_q_2' %>Yes<br/>
- <%= f.radio_button :sanswer, false, :class => 'closed_q_2' %>No<br/>
- <br/>
- <!-- Switched from @openquestions[0].openquestion -->
- <%= f.label @openquestions %><br><br>
-  <%= f.text_area :answer, :class => 'open_q_1' %>
-  <span class="text_char_count">255</span> characters <span class="text_char_overlimit">remaining</span>. <span class="text_char_over"></span>
-  <br><br>
+<div class="container text-center">
+	<div class="col-md-6 col-md-offset-3">
+		<h1>Welcome to Today's Survey!</h1>
+		<%= form_for :closedanswer, url: happinesstrackers_thankyou_path do |f| %>	
+			<b><%= @closedquestions[0].closedquestion %></b>	
+			<br />
+			<div class="btn-group" data-toggle="buttons">
+			  <label class="btn btn-default">
+			    <%= f.radio_button :hanswer, true, :class => 'closed_q_1' %>
+			    Yes
+			  </label>
+			  <label class="btn btn-default">
+			    <%= f.radio_button :hanswer, false, :class => 'closed_q_1' %>
+			    No
+			  </label>
+			</div>
+			<br /><br />
+			<b><%= @closedquestions[1].closedquestion %></b><br />
 
-<%= f.submit "Submit", :class => 'validation_submit_button' %>
-<br />
-<span class="validation_response"></span>
-<% end %>
-</p>
+			<div class="btn-group" data-toggle="buttons">
+			  <label class="btn btn-default">
+			    <%= f.radio_button :sanswer, true, :class => 'closed_q_2' %>
+			    Yes
+			  </label>
+			  <label class="btn btn-default">
+			    <%= f.radio_button :sanswer, false, :class => 'closed_q_2' %>
+			    No
+			  </label>
+			</div>
 
+			 <br/><br />
+			 <!-- Switched from @openquestions[0].openquestion -->
+			 <%= f.label @openquestions %><br />
+			  <%= f.text_area :answer, :class => 'open_q_1 form-control' %>
+			  <span class="text_char_count">255</span><span class="text_char_overlimit"> characters remaining</span>. <span class="text_char_over"></span>
+			  <br><br>
+
+			<%= f.submit "Submit", :class => 'validation_submit_button btn btn-default' %>
+			<br />
+			<span class="validation_response"></span>
+		<% end %>
+	</div>
+</div>

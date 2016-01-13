@@ -31,10 +31,10 @@ function IsInvalid() {
 
 	//Return proper response and change value of the span field.
 	if(closed_q_1 === undefined || closed_q_2 === undefined) {
-		$('.validation_response').html('Looks you have not filled something out.');
+		$('.validation_response').html('Looks like you have not filled something out.');
 		return true;
 	} else {
-		$('.validation_response').html('Everything ok.');
+		$('.validation_response').html('');
 		return false;
 	}
 }
@@ -45,14 +45,14 @@ function ReturnChars() {
 	var q_length = $('.open_q_1').val().length;
 	var remaining_length = allowed_length - q_length;
 
-	$('.text_char_count').html(remaining_length);
+	$('.text_char_count').html(Math.abs(remaining_length));
 
 	if(remaining_length < 0) {
 		$('.text_char_over').html("Only the first 255 characters will be recorded.");
-		$('.text_char_overlimit').html("over limit");
+		$('.text_char_overlimit').html(" characters over limit");
 	} else {
 		$('.text_char_over').html("");
-		$('.text_char_overlimit').html("remaining");
+		$('.text_char_overlimit').html(" characters remaining");
 	}
 }
 
