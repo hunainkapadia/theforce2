@@ -1,0 +1,47 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+/* Navbar CSS, colors for Airbnb */
+.navbar-default {
+    background-color: rgb(255,90,96);
+    border-color: rgb(217,76,81);
+    border-radius: 0px;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+}
+
+.navbar img {
+	height: 48px;
+	padding: 4px;
+	padding-right: 12px;
+	float: left;
+}
+
+.navbar .nav > li > a, .navbar .navbar-brand {
+    color:  #fff;
+}
+
+/* Validation color of font */
+.validation_response {
+	color: red;
+	font-size: 10px;
+}
+
+.text_char_count, .text_char_over, .text_char_overlimit {
+	font-size: 10px;	
+}
