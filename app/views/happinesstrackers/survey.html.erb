@@ -3,16 +3,19 @@
 <p>
 <%= form_for :closedanswer, url: happinesstrackers_thankyou_path do |f| %>	
 <%= f.label @closedquestions[0].closedquestion %><br><br>
- <%= f.radio_button :hanswer, true %>Yes<br/>
-  <%= f.radio_button :hanswer, false %>No<br/>
- <%= f.label @closedquestions[1].closedquestion %><br><br>
- <%= f.radio_button :sanswer, true %>Yes<br/>
- <%= f.radio_button :sanswer, false %>No<br/>
+ <%= f.radio_button :hanswer, true, :class => 'closed_q_1' %>Yes<br/>
+  <%= f.radio_button :hanswer, false, :class => 'closed_q_1' %>No<br/>
+<%= f.label @closedquestions[1].closedquestion %><br><br>
+ <%= f.radio_button :sanswer, true, :class => 'closed_q_2' %>Yes<br/>
+ <%= f.radio_button :sanswer, false, :class => 'closed_q_2' %>No<br/>
  <br/>
- <%= f.label @openquestions[0].openquestion %><br><br>
-  <%= f.text_area :answer %><br><br>
+ <!-- Switched from @openquestions[0].openquestion -->
+ <%= f.label @openquestions %><br><br>
+  <%= f.text_area :answer, :class => 'open_q_1' %><br><br>
 
-<%= f.submit "Submit" %>
+<%= f.submit "Submit", :class => 'validation_submit_button' %>
+<br />
+<span class="validation_response"></span>
 <% end %>
 </p>
 

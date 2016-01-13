@@ -18,3 +18,32 @@
 //Below is a bootstrap requirement
 //= require jquery
 //= require bootstrap-sprockets
+
+function IsInvalid() {
+	//Function below checks values of closed questions.
+	//If undefined it returns true, otherwise false.
+	//Open question is included, but currently no validation performed on it.
+
+	//Check values below. "undefined" returned if lack of value.
+	var closed_q_1 = $('.closed_q_1:checked').val()
+	var closed_q_2 = $('.closed_q_2:checked').val()
+	var open_q_1 = $('.open_q_1').val()
+
+	//Return proper response and change value of the span field.
+	if(closed_q_1 === undefined || closed_q_2 === undefined) {
+		$('.validation_response').html('Looks you have not filled something out.');
+		return true;
+	} else {
+		$('.validation_response').html('Everything ok.');
+		return false;
+	}
+}
+
+$(document).ready(function() {
+	$('.validation_submit_button').click(function() {
+		if(IsInvalid()) {
+			//Returning false will prevent form from sending.
+			return false;
+		}
+	});
+});

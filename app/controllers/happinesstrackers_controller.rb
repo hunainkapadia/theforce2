@@ -92,7 +92,16 @@ def index
   def survey
   @time = Time.now.strftime("%Y-%m-%d")
   @closedquestions = ClosedQuestions.where(is_visible: true)
-  @openquestions = OpenQuestions.where(createdfordate: @time)
+  #@openquestions = OpenQuestions.where(createdfordate: @time)
+
+  #Quick change on my part to do testing - need to change the default, as it's hardcoded now
+  default_open = "Do you have any feedback for us?"
+  @openquestions = default_open
+
+  if OpenQuestions.where(createdfordate: @time)[0]
+    @openquestions = OpenQuestions.where(createdfordate: @time)[0].openquestion
+  end
+
   end
 
   def thankyou
