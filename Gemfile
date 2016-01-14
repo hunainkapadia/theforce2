@@ -43,3 +43,7 @@ gem 'bootstrap-sass'
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
 
 gem "squeel"
+
+gem "chartkick"
+gem 'groupdate'
+gem 'active_median'

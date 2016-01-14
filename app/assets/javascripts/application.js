@@ -14,10 +14,11 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
-//
+//-chartkick
 //Below is a bootstrap requirement
 //= require jquery
 //= require bootstrap-sprockets
+
 
 function IsInvalid() {
 	//Function below checks values of closed questions.

@@ -38,7 +38,7 @@ def index
   openquestions = OpenQuestions.where(createdfordate: Date.today)
   
   if openquestions.empty?
-    @openquestion = "No question specified for today. Whatsup?"
+    @openquestion = get_default_question
   else
     @openquestion = openquestions[0].openquestion
   end
@@ -92,16 +92,15 @@ def index
   def survey
   @time = Time.now.strftime("%Y-%m-%d")
   @closedquestions = ClosedQuestions.where(is_visible: true)
-  #@openquestions = OpenQuestions.where(createdfordate: @time)
-
-  #Quick change on my part to do testing - need to change the default, as it's hardcoded now
+  
   default_open = "Do you have any feedback for us?"
-  @openquestions = default_open
 
-  if OpenQuestions.where(createdfordate: @time)[0]
-    @openquestions = OpenQuestions.where(createdfordate: @time)[0].openquestion
+  @openquestions = OpenQuestions.where(createdfordate: Date.today)
+  if @openquestions.empty?
+    @openquestion = get_default_question
+  else
+    @openquestion = openquestions[0].openquestion
   end
-
   end
 
   def thankyou
@@ -116,8 +115,12 @@ def index
   end
 
   private
-    def closedquestion_answer_params
-    params.require(:closedanswer).permit(:ans)
+  def get_default_question
+    question = "Do you have any feedback for us?"
+  end
+
+  def closedquestion_answer_params
+      params.require(:closedanswer).permit(:ans)
   end
 
   def happinesstracker_params
