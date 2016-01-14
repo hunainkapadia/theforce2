@@ -13,6 +13,7 @@ Yes count? <%= number_to_percentage(@stressedanswers, precision: 1) %><br/>
 No count?  <%= number_to_percentage(@Notstressedanswers, precision: 1) %><br/>
 
 <p>Happiness trend</p><br/>
+<%= javascript_include_tag "http://www.google.com/jsapi", "chartkick" %>
 <%= line_chart Happy1answer.where(hanswer: true).group("DATE(created_at)").count %>
 <br/>
 <h3>Open question for today</h3> <br>
@@ -27,4 +28,3 @@ No count?  <%= number_to_percentage(@Notstressedanswers, precision: 1) %><br/>
 <br/>
 <%=link_to "Admin page", happinesstrackers_admin_path %>
 
-<%= javascript_include_tag "http://www.google.com/jsapi", "chartkick" %>
