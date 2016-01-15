@@ -42,8 +42,8 @@ def index
   else
     @openquestion = openquestions[0].openquestion
   end
-
   @openanswers = Oanswer.where("created_at > ?", Date.today)
+  @linegraph = line_graph_prep
   end
 
   def show
@@ -72,7 +72,6 @@ def index
     @closedquestion = Cquestions.new(c_question_params)
     @closedquestion.save
   end
-
    redirect_to happinesstrackers_admin_path
   end
 
@@ -92,8 +91,6 @@ def index
   def survey
   @time = Time.now.strftime("%Y-%m-%d")
   @closedquestions = ClosedQuestions.where(is_visible: true)
-  
-  default_open = "Do you have any feedback for us?"
 
   @openquestions = OpenQuestions.where(createdfordate: Date.today)
   if @openquestions.empty?
@@ -115,6 +112,17 @@ def index
   end
 
   private
+  def line_graph_prep
+    trueanswersperday = Happy1answer.where(hanswer: true).group("DATE(created_at)").count
+    totalanswersperday = Happy1answer.group("DATE(created_at)").count
+    linegraph = Hash.new  
+    trueanswersperday.each do |key, val|
+      percent = val.to_f/totalanswersperday[key]
+      linegraph[key] = percent
+    end
+    puts linegraph
+    return linegraph
+  end
   def get_default_question
     question = "Do you have any feedback for us?"
   end
