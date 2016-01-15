@@ -113,8 +113,8 @@ def index
 
   private
   def line_graph_prep
-    trueanswersperday = Happy1answer.where(hanswer: true).group("DATE(created_at)").count
-    totalanswersperday = Happy1answer.group("DATE(created_at)").count
+    trueanswersperday = Happy1answer.where("hanswer = ? AND created_at > date('now', '-30 day')", true).group("DATE(created_at)").count
+    totalanswersperday = Happy1answer.where("created_at > date('now', '-30 day')").group("DATE(created_at)").count
     linegraph = Hash.new  
     trueanswersperday.each do |key, val|
       percent = val.to_f/totalanswersperday[key]
