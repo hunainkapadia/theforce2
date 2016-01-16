@@ -45,3 +45,16 @@
 .text_char_count, .text_char_over, .text_char_overlimit {
 	font-size: 10px;	
 }
+
+/* Ensuring middle display (both horizontal and vertical) of the thank you text. */
+html, body, .container-table {
+    height: calc(100% - 50px);
+}
+
+.container-table {
+    display: table;
+}
+.vertical-center-row {
+    display: table-cell;
+    vertical-align: middle;
+}

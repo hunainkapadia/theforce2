@@ -18,7 +18,7 @@ def index
   @StressedTotalForTheDay = @stressedanswercount + @Notstressedanswercount
 
   #Total counts and run simple if's and throw back to view
-  if @HappinessTotalForTheDay  > 5
+  if @HappinessTotalForTheDay  >= 5
     @happyanswers = (@happyanswercount.to_f / @HappinessTotalForTheDay) * 100
     @Nothappyanswers = (@Nothappyanswercount.to_f / @HappinessTotalForTheDay) * 100
   else
@@ -26,7 +26,7 @@ def index
     @Nothappyanswers = 'Not enough answers.  Minimum total answers have to be atleast 5.'
   end
   
-  if @StressedTotalForTheDay > 5
+  if @StressedTotalForTheDay >= 5
     @stressedanswers = (@stressedanswercount.to_f / @StressedTotalForTheDay) * 100
     @Notstressedanswers = (@Notstressedanswercount.to_f / @StressedTotalForTheDay) * 100
   else
@@ -42,9 +42,23 @@ def index
   else
     @openquestion = openquestions[0].openquestion
   end
-  @openanswers = Oanswer.where("created_at > ?", Date.today)
+  @openanswers = Oanswer.where("created_at > ? AND answer <> ''", Date.today)
   @linegraph = line_graph_prep
-  end
+
+  if @happyanswers == 100
+    @smiley_main = '100.png'
+  elsif @happyanswers >= 85
+    @smiley_main = '100-85.png'
+  elsif @happyanswers >= 70
+    @smiley_main = '85-70.png'
+  elsif @happyanswers >= 55
+    @smiley_main = '70-55.png'
+  elsif @happyanswers >= 40
+    @smiley_main = '55-40.png'
+  else
+    @smiley_main = '40-0.png'
+  end  
+end
 
   def show
 	 @happinesstracker = Happinesstracker.find(params[:id])

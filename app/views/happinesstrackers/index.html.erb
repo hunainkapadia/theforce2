@@ -1,34 +1,42 @@
-<h1>Happiness tracker reporting page</h1>
-<br>
-Setup the public dashboard here with the results from the questionaire.
+<div class="container text-center">
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+		  	<h1 style="margin-top: 0px;">Today's Survey's Results</h1>
+		  	(<%= @HappinessTotalForTheDay %> responses)<br /><br />
+		</div>
+	</div>
+	<div class="row">
 
-<br/>
-Are you happy today? <br/>
-Yes count? <br/>
-<%= @happyanswers == String ? @happyanswers : number_to_percentage(@happyanswers, precision: 1)  %><br/>
-No count? <br/>
-<%= @Nothappyanswers == String ? @Nothappyanswers : number_to_percentage(@Nothappyanswers, precision: 1)  %><br/>
-<br/>
-Are you Stressed today? <br/>
-Yes count? <br/>
-<%= @stressedanswers == String ? @stressedanswers : number_to_percentage(@stressedanswers, precision: 1)  %><br/>
-No count? <br/>
-<%= @Notstressedanswers == String ? @Notstressedanswers : number_to_percentage(@Notstressedanswers, precision: 1)  %><br/>
-
-<br/>
-<p>Happiness trend</p><br/>
-<%= javascript_include_tag "http://www.google.com/jsapi", "chartkick" %>
-<%= line_chart @linegraph, library: {title: "Happiness Tracker", titlePosition: "middle", vAxis: {format: "percent"}} %>
-<br/>
-<h3>Open question for today</h3> <br>
-<%= @openquestion %><br><br>
-<h3>Answers:</h3><br>
-<% @openanswers.each do |a| %>
-<%= a.answer %><br/>
-<% end %>
-<br/><br/>
-<br/><br/>
-<%=link_to "Today's survey", happinesstrackers_survey_path %>
-<br/>
-<%=link_to "Admin page", happinesstrackers_admin_path %>
-
+	  <div class="col-md-5 col-md-offset-1">
+	  	<img src="../../assets/smileys/<%= @smiley_main %>">
+	  	<br />
+	  	<h1><b><%= @happyanswers == String ? @happyanswers : number_to_percentage(@happyanswers, precision: 1)  %></b></h1>
+	    (DoD: +XX%, WoW: +XX%)<br />
+	    Are you happy today?
+		<%= javascript_include_tag "http://www.google.com/jsapi", "chartkick" %>
+		<%= line_chart @linegraph, library: {title: "Happiness results over time", titlePosition: "middle", vAxis: {format: "percent"}} %>	    
+	</div>
+	  <div class="col-md-5">
+	  	Are you stressed today?
+	  	<div class="progress">
+		  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= @stressedanswers == String ? @stressedanswers : number_to_percentage(@stressedanswers, precision: 1)  %>;">
+		    <span class="sr-only"><%= @stressedanswers == String ? @stressedanswers : number_to_percentage(@stressedanswers, precision: 1)  %> Complete</span>
+		  </div>
+		</div>
+		<%= @stressedanswers == String ? @stressedanswers : number_to_percentage(@stressedanswers, precision: 1)  %> (DoD: +XX%, WoW: +XX%)
+		<br /><br /><br />
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title"><%= @openquestion %></h3>
+		  </div>
+		</div>
+		<div class="panel panel-default" style="max-height: 200px; overflow-y: scroll;">
+			<ul class="list-group" >
+				<% @openanswers.each do |a| %>
+					<li class="list-group-item"><%= a.answer %></li>
+				<% end %>			
+			</ul>
+		</div>
+	  </div>
+	</div>
+</div>
