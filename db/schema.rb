@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160104104817) do
+ActiveRecord::Schema.define(version: 20160116124915) do
 
   create_table "answers", force: true do |t|
     t.boolean  "answer"
@@ -84,6 +84,13 @@ ActiveRecord::Schema.define(version: 20160104104817) do
 
   create_table "happyanswers", force: true do |t|
     t.boolean  "answer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "myusers", force: true do |t|
+    t.string   "name"
+    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

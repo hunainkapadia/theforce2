@@ -8,7 +8,6 @@ def index
 
   #Only show answers if the total number of responses for each 
   #question is more than 5.
-
   #Get the count for the number of responses for each answer option for today
   @happyanswercount = Happy1answer.where('hanswer = ? and created_at > ?', true, Date.today).count
   @Nothappyanswercount =  Happy1answer.where('hanswer = ? and created_at > ?', false, Date.today).count
@@ -36,7 +35,6 @@ def index
 
   #Show open question for today, esle show "Whats up?"
   openquestions = OpenQuestions.where(createdfordate: Date.today)
-  
   if openquestions.empty?
     @openquestion = get_default_question
   else
@@ -86,6 +84,12 @@ end
     @closedquestion = Cquestions.new(c_question_params)
     @closedquestion.save
   end
+
+  if !params[:myusers].nil?
+    @user = Myuser.new(user_params)
+    @user.save
+  end
+
    redirect_to happinesstrackers_admin_path
   end
 
@@ -95,17 +99,20 @@ end
 	end
 
   def destroy
+    puts "My Jame"
+    puts :id
+    redirect_to happinesstrackers_admin_path
   end
   
   def admin
     @closedquestions = ClosedQuestions.where(is_visible: true)
     @openquestions = OpenQuestions.all
+    @users = Myuser.all
   end
 
   def survey
   @time = Time.now.strftime("%Y-%m-%d")
   @closedquestions = ClosedQuestions.where(is_visible: true)
-
   @openquestions = OpenQuestions.where(createdfordate: Date.today)
   if @openquestions.empty?
     @openquestion = get_default_question
@@ -161,4 +168,7 @@ end
     params.require(:cquestion).permit(:question, :is_visible)
   end
 
+  def user_params
+    params.require(:myusers).permit(:name, :email)
+  end
 end

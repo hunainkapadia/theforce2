@@ -5,8 +5,9 @@
 <% @closedquestions.each do |closedquestion| %>
 <%= closedquestion.closedquestion %><br>
 <% end %>
-<br>
-<br>
+<%
+=begin
+%>
 <p>To create another closed question, type it here and press Create</p>
 <%= form_for :closedquestion, url: happinesstrackers_path do |f| %>
   <%= f.text_field :closedquestion %>
@@ -14,9 +15,11 @@
   <%= label_tag(:is_visible, "Is visible") %>
   <%= f.submit "Create" %>
 <% end %>
+<%
+=end
+%>
 <br>
-<br>
-<h1>List of open questions</h1>
+<h3>List of open questions</h3>
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;border-color:#999;}
 .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;}
@@ -45,10 +48,25 @@
   <p>Created for date <%= f.date_field :createdfordate %></p><br>
   <%= f.submit "Create" %>
 <% end %>
+<%
+=begin
+%>
 <p>exp with Cquestion table</p>
-<%= form_for :cquestion, url: happinesstrackers_path do |f| %>
-  <%= f.text_field :question %>
+<%= form_for :closedquestion, url: happinesstrackers_path do |f| %>
+  <%= f.text_field :closedquestion %>
   <%= f.check_box :is_visible %>
   <%= label_tag(:is_visible, "Is visible") %>
+  <%= f.submit "Create" %>
+<% end %>
+<%
+=end
+%>
+<h3>List of users</h3>
+<% @users.each do |user| %>
+<%= user.name %> <%= user.email%> <%= link_to 'Delete',happinesstrackers_admin_path, method: :delete, :id => user.id %><br>
+<% end %>
+<%= form_for :myusers, url: happinesstrackers_path do |f| %>
+  <%= f.label :Name %>  <%= f.text_field :name %><br/>
+  <%= f.label :Email %> <%= f.text_field :email %><br/>
   <%= f.submit "Create" %>
 <% end %>
