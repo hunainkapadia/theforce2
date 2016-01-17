@@ -57,15 +57,22 @@ function ReturnChars() {
 	}
 }
 
-$(document).ready(function() {
+function Ready() {
+	$('.open_q_1').on('keypress',function () {
+		ReturnChars();
+	});
+
 	$('.validation_submit_button').click(function() {
 		if(IsInvalid()) {
 			//Returning false will prevent form from sending.
 			return false;
 		}
 	});
+}
 
-	$('.open_q_1').on('keydown',function () {
-		ReturnChars();
-	});
+$(document).ready(function() {
+	Ready();
 });
+
+//Needed because of page reloads, they work differently than ready(function()...
+$(document).on('page:load', Ready);

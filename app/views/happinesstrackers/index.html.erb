@@ -13,24 +13,34 @@
 	  	<h1><b><%= @happyanswers == String ? @happyanswers : number_to_percentage(@happyanswers, precision: 1)  %></b></h1>
 	    (DoD: +XX%, WoW: +XX%)<br />
 	    Are you happy today?
+		<div class="chartkick_chart">
 		<%= javascript_include_tag "http://www.google.com/jsapi", "chartkick" %>
-		<%= line_chart @linegraph, library: {title: "Happiness results over time", titlePosition: "middle", vAxis: {format: "percent"}} %>	    
+		<%= line_chart @linegraph,
+			max: 1,
+			height: "200px",
+			colors: ["#6DA326"],
+			library:
+				{title: "Happiness results over time",
+				 titlePosition: "middle",
+				 curveType: "none",
+				 pointSize: 0,
+				 vAxis: {format: "percent"},
+				 hAxis: {textStyle: {fontSize: "6px"}}
+				}
+		%>
+		</div>
 	</div>
 	  <div class="col-md-5">
 	  	Are you stressed today?
 	  	<div class="progress">
-		  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= @stressedanswers == String ? @stressedanswers : number_to_percentage(@stressedanswers, precision: 1)  %>;">
+		  <div class="progress-bar <%= @progress_color %>" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= @stressedanswers == String ? @stressedanswers : number_to_percentage(@stressedanswers, precision: 1)  %>;">
 		    <span class="sr-only"><%= @stressedanswers == String ? @stressedanswers : number_to_percentage(@stressedanswers, precision: 1)  %> Complete</span>
 		  </div>
 		</div>
 		<%= @stressedanswers == String ? @stressedanswers : number_to_percentage(@stressedanswers, precision: 1)  %> (DoD: +XX%, WoW: +XX%)
-		<br /><br /><br />
-		<div class="panel panel-default">
-		  <div class="panel-heading">
-		    <h3 class="panel-title"><%= @openquestion %></h3>
-		  </div>
-		</div>
-		<div class="panel panel-default" style="max-height: 200px; overflow-y: scroll;">
+		<br />
+		<h3><%= @openquestion %></h3>
+		<div class="panel panel-default text-justify" style="max-height: 240px; overflow-y: scroll;">
 			<ul class="list-group" >
 				<% @openanswers.each do |a| %>
 					<li class="list-group-item"><%= a.answer %></li>
