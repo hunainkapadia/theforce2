@@ -17,20 +17,41 @@ def index
   @StressedTotalForTheDay = @stressedanswercount + @Notstressedanswercount
 
   #Total counts and run simple if's and throw back to view
+  #TZ: Happiness and stress under same if condition since they are required question;
+  #TZ: both will be above >= 5 and if not then switching to another view with a message
   if @HappinessTotalForTheDay  >= 5
     @happyanswers = (@happyanswercount.to_f / @HappinessTotalForTheDay) * 100
     @Nothappyanswers = (@Nothappyanswercount.to_f / @HappinessTotalForTheDay) * 100
-  else
-    @happyanswers = 'Not enough answers. Minimum total answers have to be atleast 5.'
-    @Nothappyanswers = 'Not enough answers.  Minimum total answers have to be atleast 5.'
-  end
-  
-  if @StressedTotalForTheDay >= 5
     @stressedanswers = (@stressedanswercount.to_f / @StressedTotalForTheDay) * 100
-    @Notstressedanswers = (@Notstressedanswercount.to_f / @StressedTotalForTheDay) * 100
+    @Notstressedanswers = (@Notstressedanswercount.to_f / @StressedTotalForTheDay) * 100 
+
+    #Determine color of the stressed bar depending on the percentage response
+    if @stressedanswers >= 50
+      @progress_color = 'progress-bar-danger'
+    elsif @stressedanswers >= 30
+      @progress_color = 'progress-bar-warning'
+    else
+      @progress_color = 'progress-bar-success'
+    end
+
+    #Determining the image for the smiley face based on happy answers %
+    if @happyanswers == 100
+      @smiley_main = '100.png'
+    elsif @happyanswers >= 85
+      @smiley_main = '100-85.png'
+    elsif @happyanswers >= 70
+      @smiley_main = '85-70.png'
+    elsif @happyanswers >= 55
+      @smiley_main = '70-55.png'
+    elsif @happyanswers >= 40
+      @smiley_main = '55-40.png'
+    else
+      @smiley_main = '40-0.png'
+    end         
+
   else
-    @stressedanswers = 'Not enough answers. Minimum total answers have to be atleast 5.'
-    @Notstressedanswers = 'Not enough answers.  Minimum total answers have to be atleast 5.'
+    #Display the "not enough" template
+    render :action => 'notenough'
   end
 
   #Show open question for today, esle show "Whats up?"
@@ -40,22 +61,9 @@ def index
   else
     @openquestion = openquestions[0].openquestion
   end
+  #Do not display empty answers
   @openanswers = Oanswer.where("created_at > ? AND answer <> ''", Date.today)
   @linegraph = line_graph_prep
-
-  if @happyanswers == 100
-    @smiley_main = '100.png'
-  elsif @happyanswers >= 85
-    @smiley_main = '100-85.png'
-  elsif @happyanswers >= 70
-    @smiley_main = '85-70.png'
-  elsif @happyanswers >= 55
-    @smiley_main = '70-55.png'
-  elsif @happyanswers >= 40
-    @smiley_main = '55-40.png'
-  else
-    @smiley_main = '40-0.png'
-  end  
 end
 
   def show
@@ -106,7 +114,7 @@ end
   
   def admin
     @closedquestions = ClosedQuestions.where(is_visible: true)
-    @openquestions = OpenQuestions.all
+    @openquestions = OpenQuestions.order('createdfordate DESC').all
     @users = Myuser.all
   end
 
@@ -117,7 +125,7 @@ end
   if @openquestions.empty?
     @openquestion = get_default_question
   else
-    @openquestion = openquestions[0].openquestion
+    @openquestion = @openquestions[0].openquestion
   end
   end
 

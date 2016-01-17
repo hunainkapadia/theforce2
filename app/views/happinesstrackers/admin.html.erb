@@ -1,10 +1,10 @@
-
-<br>
-<h1>List of closed questions</h1>
-<br>
-<% @closedquestions.each do |closedquestion| %>
-<%= closedquestion.closedquestion %><br>
-<% end %>
+<div class="container text-center">
+  <div class="col-md-8 col-md-offset-2">
+    <h1>List of closed questions</h1>
+    <br>
+    <% @closedquestions.each do |closedquestion| %>
+    <%= closedquestion.closedquestion %><br>
+    <% end %>
 <%
 =begin
 %>
@@ -18,36 +18,29 @@
 <%
 =end
 %>
-<br>
-<h3>List of open questions</h3>
-<style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;border-color:#999;}
-.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#444;background-color:#F7FDFA;}
-.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#999;color:#fff;background-color:#26ADE4;}
-.tg .tg-vn4c{background-color:#D2E4FC}
-.tg .tg-yw4l{vertical-align:top}
-</style>
-<table class="tg">
-  <tr>
-    <th class="tg-031e">Question</th>
-    <th class="tg-031e">Date</th>
-  </tr>
-  <% @openquestions.each do |openquestion| %>
-  <tr>
-    <td class="tg-vn4c"><%= openquestion.openquestion%></td>
-    <td class="tg-vn4c"><%= openquestion.createdfordate%></td>
-  </tr>
-  <% end %>
-</table>	
-<br>
-<br>
-<p>To create another open question, type it here and press Create</p>
-<%= form_for :openquestion, url: happinesstrackers_path do |f| %>
-  <p>Open Question <%= f.text_field :openquestion %></p><br>
-  <p>Created by <%= f.text_field :createdby %></p><br>
-  <p>Created for date <%= f.date_field :createdfordate %></p><br>
-  <%= f.submit "Create" %>
-<% end %>
+    <br>
+    <h3>List of open questions</h3>
+
+    <table class="table">
+      <tr>
+        <th>Question</th>
+        <th>Date</th>
+      </tr>
+      <% @openquestions.each do |openquestion| %>
+      <tr>
+        <td><%= openquestion.openquestion%></td>
+        <td><%= openquestion.createdfordate%></td>
+      </tr>
+      <% end %>
+    </table>	
+    <br>
+    <br>
+    <p>To create another open question, type it here and press Create</p>
+    <%= form_for :openquestion, url: happinesstrackers_path do |f| %>
+      <p>Open Question <%= f.text_field :openquestion, :class => 'form-control' %></p>
+      <p>Created for date <%= f.date_field :createdfordate, :value => Time.now.strftime('%Y-%m-%d'), :class => 'form-control' %></p><br>
+      <%= f.submit "Create", :class => 'btn btn-default' %>
+    <% end %>
 <%
 =begin
 %>
@@ -61,12 +54,14 @@
 <%
 =end
 %>
-<h3>List of users</h3>
-<% @users.each do |user| %>
-<%= user.name %> <%= user.email%> <%= link_to 'Delete',happinesstrackers_admin_path, method: :delete, :id => user.id %><br>
-<% end %>
-<%= form_for :myusers, url: happinesstrackers_path do |f| %>
-  <%= f.label :Name %>  <%= f.text_field :name %><br/>
-  <%= f.label :Email %> <%= f.text_field :email %><br/>
-  <%= f.submit "Create" %>
-<% end %>
+    <h3>List of users</h3>
+    <% @users.each do |user| %>
+    <%= user.name %> <%= user.email%> <%= link_to 'Delete',happinesstrackers_admin_path, method: :delete, :id => user.id %><br>
+    <% end %>
+    <%= form_for :myusers, url: happinesstrackers_path do |f| %>
+      <%= f.label :Name %>  <%= f.text_field :name, :class => 'form-control' %><br/>
+      <%= f.label :Email %> <%= f.text_field :email, :class => 'form-control' %><br/>
+      <%= f.submit "Create", :class => 'btn btn-default' %>
+    <% end %>
+  </div>
+</div>

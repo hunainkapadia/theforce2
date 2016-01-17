@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get '/happinesstrackers/survey' => 'happinesstrackers#survey'
   get '/happinesstrackers/admin' => 'happinesstrackers#admin'
   get '/happinesstrackers/faq' => 'happinesstrackers#faq'
+  
   post '/happinesstrackers/thankyou' => 'happinesstrackers#thankyou'
   #get '/happinesstrackers/thankyou' => 'happinesstrackers#thankyou'
   #post '/happinesstrackers/survey' => 'happinesstrackers#update'
