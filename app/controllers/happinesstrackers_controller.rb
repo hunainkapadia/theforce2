@@ -142,8 +142,13 @@ end
 
   private
   def line_graph_prep
+  if Rails.env.development?
     trueanswersperday = Happy1answer.where("hanswer = ? AND created_at > date('now', '-30 day')", true).group("DATE(created_at)").count
     totalanswersperday = Happy1answer.where("created_at > date('now', '-30 day')").group("DATE(created_at)").count
+  elsif Rails.env.production?
+    trueanswersperday = Happy1answer.where("hanswer = ? AND created_at > now()::date - 30", true).group("DATE(created_at)").count
+    totalanswersperday = Happy1answer.where("created_at > now()::date - 365").group("DATE(created_at)").count
+  end
     linegraph = Hash.new  
     trueanswersperday.each do |key, val|
       percent = val.to_f/totalanswersperday[key]
